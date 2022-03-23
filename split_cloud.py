@@ -22,7 +22,7 @@ def write_files(grid_obj, filename):
 
 
 def split_cloud(filename, grid_size=[1, 1, 1]):
-    names = options.data_format.split(' ')
+    names = options.DATA_FORMAT.split(' ')
     for i in range(3):
         names[i] = names[i].lower()
     cloud = pd.read_csv(filename,
@@ -31,6 +31,6 @@ def split_cloud(filename, grid_size=[1, 1, 1]):
                         names=names)
 
     grid_obj = VoxelGrid(cloud, grid_size,
-                         center=options.center_cloud, verbose=options.debug)
+                         center=options.CENTER_CLOUD, verbose=options.DEBUG)
     write_files(grid_obj, filename)
     print('Splitting finished')

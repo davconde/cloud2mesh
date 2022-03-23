@@ -11,12 +11,12 @@ def cloud_processing(ms):
     Simplify cloud and compute normals
     '''
     # Point cloud simplification
-    if options.simplif_prcnt < 100:
+    if options.SIMPLIF_PRCNT < 100:
         print('Simplifying point cloud')
         m = ms.current_mesh()
         num_points = m.vertex_number()
         ms.point_cloud_simplification(
-            samplenum=num_points*options.simplif_prcnt//100,
+            samplenum=num_points*options.SIMPLIF_PRCNT//100,
             bestsampleflag=True)
 
     # Compute normals
@@ -59,15 +59,15 @@ def surface_reconstruction(ms, cloud_name, pc_id):
     ms.compute_texcoord_transfer_vertex_to_wedge()
     ms.compute_texcoord_parametrization_triangle_trivial_per_wedge(
         sidedim=0,
-        textdim=options.textdim,
+        textdim=options.TEXTDIM,
         border=4,
         method='Basic')
     ms.transfer_attributes_to_texture_per_vertex(
         sourcemesh=pc_id,
         targetmesh=ms.current_mesh_id(),
         textname=cloud_name + '_tex.png',
-        textw=options.textdim,
-        texth=options.textdim
+        textw=options.TEXTDIM,
+        texth=options.TEXTDIM
     )
 
     return ms
@@ -85,9 +85,9 @@ def process_cloud(cloud_name):
     # Read point cloud
     print('Loading point cloud')
     ms.load_new_mesh(filename,
-                     strformat=options.data_format,
+                     strformat=options.DATA_FORMAT,
                      separator='SPACE',
-                     rgbmode=options.rgbmode)
+                     rgbmode=options.RGB_MODE)
     pc_id = ms.current_mesh_id()
 
     # Processing chain
@@ -98,5 +98,21 @@ def process_cloud(cloud_name):
     ms.save_project(mesh_path + '\\' + name + '.mlp')
     ms.save_current_mesh(mesh_path + '\\' + name + '.obj',
                          save_wedge_texcoord=True)
+
+    # Fix material link name in obj
+    with open(mesh_path + '\\' + name + '.obj', 'r+') as file:
+        pos = 0
+        line = file.readline()
+        while line:
+            if line.startswith('mtllib'):
+                print(pos)
+                n_line = 'mtllib ./'+line.replace('\\', '/').rsplit('/', 1)[1]
+                n_line += ' ' * (len(line) - len(n_line))
+                file.seek(pos)
+                file.write(n_line)
+                break
+            else:
+                pos = file.tell()
+                line = file.readline()
 
     print('Processing finished')
