@@ -105,7 +105,6 @@ def process_cloud(cloud_name):
         line = file.readline()
         while line:
             if line.startswith('mtllib'):
-                print(pos)
                 n_line = 'mtllib ./'+line.replace('\\', '/').rsplit('/', 1)[1]
                 n_line += ' ' * (len(line) - len(n_line))
                 file.seek(pos)
