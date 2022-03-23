@@ -1,4 +1,4 @@
 numpy
 pandas
 matplotlib
-pymeshlab
+pymeshlab==2022.2.post2
