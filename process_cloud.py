@@ -88,6 +88,9 @@ def process_cloud(cloud_name):
                      strformat=options.DATA_FORMAT,
                      separator='SPACE',
                      rgbmode=options.RGB_MODE)
+    if ms.current_mesh().vertex_number() < 3:
+        print('No faces in this file')
+        return
     pc_id = ms.current_mesh_id()
 
     # Processing chain

@@ -17,8 +17,9 @@ def write_files(grid_obj, filename):
     _, name = name.rsplit('/', 1)
     grid = grid_obj.get_grid()
     for key in grid:
-        grid[key].to_csv('clouds/' + name + '_' + key + '.' + ext,
-                         sep=' ', header=False, index=False)
+        if len(grid[key]) > 0:
+            grid[key].to_csv('clouds/' + name + '_' + key + '.' + ext,
+                             sep=' ', header=False, index=False)
 
 
 def split_cloud(filename, grid_size=[1, 1, 1]):
