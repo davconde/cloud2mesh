@@ -12,3 +12,5 @@ After adjusting settings, run the [`main.py`](main.py) script. Outputs are store
 
 ## Import in Unreal Engine
 Follow [this tutorial](https://youtu.be/wVfMSwYk-V8) to visualize the output textured meshes in Unreal Engine.
+
+I you are running Unreal Engine 5 and loading the models with Nanite, you may find shadow artifacts on surfaces. Run this command to fix them: `r.RayTracing.Shadows.EnableTwoSidedGeometry 0`
