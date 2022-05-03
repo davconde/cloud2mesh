@@ -17,3 +17,4 @@ GRID_SIZE = [4, 4, 1]  # number of splits per axis
 SINGLE_FILENAME = None  # if 'None', process all files in 'clouds' folder
 TEXTDIM = 4096  # resolution of the texture
 SIMPLIF_PRCNT = 100  # simplification percentage of each cloud split
+LARGEST_FACE_THRES = 0.9  # a lower value prevents removing long planes

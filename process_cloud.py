@@ -46,8 +46,12 @@ def surface_reconstruction(ms, cloud_name, pc_id):
     # Clean mesh from large faces from bad triangulation
     # and noise faces
     print('Cleaning mesh')
+    m = ms.current_mesh()
     ms.compute_selection_by_edge_length()
-    ms.meshing_remove_selected_faces()
+    if m.selected_face_number() < m.face_number() * options.LARGEST_FACE_THRES:
+        ms.meshing_remove_selected_faces()
+    else:
+        ms.set_selection_none()
     ms.meshing_remove_connected_component_by_face_number()
     ms.meshing_remove_connected_component_by_diameter()
     ms.compute_selection_by_non_manifold_per_vertex()
