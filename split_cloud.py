@@ -27,7 +27,7 @@ def split_cloud(filename, grid_size=[1, 1, 1]):
     for i in range(3):
         names[i] = names[i].lower()
     cloud = pd.read_csv(filename,
-                        sep=' ',
+                        sep=options.COLUMN_SEPARATOR,
                         header=None,
                         names=names)
 

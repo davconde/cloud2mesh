@@ -8,6 +8,7 @@ PROCESS = True
 # Input settings
 RGB_MODE = 0  # range of color: 0 -> [0-255]; # 1 -> [0.0-1.0]
 DATA_FORMAT = 'X Y Z R G B Reflectance'  # default: 'X Y Z R G B Reflectance'
+COLUMN_SEPARATOR = ' '  # character to separate columns in the TXT cloud
 
 # Splitting options
 CENTER_CLOUD = True  # set local origin at the center of the cloud
